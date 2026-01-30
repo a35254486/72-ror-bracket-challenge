@@ -22,7 +22,7 @@
         font-family: 'Roboto Condensed', sans-serif;
         background: var(--light-gray);
         min-height: 100vh;
-        padding: 1rem; /* Reduced Padding */
+        padding: 1rem;
     }
     .container {
         max-width: 100%;
@@ -30,7 +30,7 @@
         background: var(--bg);
         border-radius: 10px;
         box-shadow: 0 4px 20px rgba(0, 59, 79, 0.15);
-        padding: 1.5rem; /* Reduced Padding */
+        padding: 1.5rem;
     }
     header {
         text-align: center;
@@ -93,7 +93,7 @@
         overscroll-behavior-inline: contain;
     }
     .bracket-container {
-        transform-origin: top left;
+        transform-origin: top left; /* Changed from 'top center' for scale */
         transition: transform 0.2s ease;
         display: inline-block;
         min-width: auto;
@@ -139,7 +139,7 @@
         font-weight: 600;
         font-size: 1.1rem;
         position: relative;
-        z-index: 1; /* ESSENTIAL: Puts team boxes on a higher layer */
+        z-index: 1; /* Puts team boxes on top of lines */
     }
     .team:first-child { border-bottom: 1px solid var(--border); border-radius: 4px 4px 0 0; }
     .team:last-child { border-top: 1px solid var(--border); border-radius: 0 0 4px 4px; }
@@ -157,41 +157,43 @@
     .champion-name { font-size: 2rem; font-weight: 700; color: white; }
     
     /* === FINAL WORKING BRACKET CONNECTOR LINES === */
-    .match::before, .match::after {
+    .match-line::before, .match-line::after {
         content: '';
         position: absolute;
-        background: var(--primary); /* Restored your dark blue color */
+        background-color: var(--primary); /* Restored your blue */
     }
-    .match::after { /* HORIZONTAL line */
+    /* HORIZONTAL line attached to the correct element */
+    .match-line::after {
         top: 50%;
         transform: translateY(-50%);
         width: 30px;
         height: 2px;
     }
-    .round-matches .match:nth-of-type(2n-1)::before { /* Full-height VERTICAL line */
+    /* VERTICAL line attached to the correct element */
+    .round-matches .match:nth-of-type(2n-1) .match-line::before {
         top: 50%;
         width: 2px;
     }
-    .round-matches .match:nth-of-type(2n)::before { /* Hide the line-drawer for the bottom match in a pair */
+    .round-matches .match:nth-of-type(2n) .match-line::before {
         display: none;
     }
-    .bracket-half.left .match::after { left: 100%; }
-    .bracket-half.left .round-matches .match:nth-of-type(2n-1)::before { left: calc(100% + 30px); }
-    .bracket-half.right .match::after { right: 100%; }
-    .bracket-half.right .round-matches .match:nth-of-type(2n-1)::before { right: calc(100% + 30px); }
-    /* Dynamic Heights using your original margins */
-    .round1 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 20px); }
-    .round2 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 108px); }
-    .round3 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 284px); }
-    .round4 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 636px); }
-    .round5 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 1340px); }
-    /* Hide lines for finals */
-    .finals-column .match::before, .finals-column .match::after,
-    .round6 .match::before, .round6 .match::after {
+    /* Positioning */
+    .bracket-half.left .match-line::after { left: 100%; }
+    .bracket-half.left .round-matches .match:nth-of-type(2n-1) .match-line::before { left: calc(100% + 30px); }
+    .bracket-half.right .match-line::after { right: 100%; }
+    .bracket-half.right .round-matches .match:nth-of-type(2n-1) .match-line::before { right: calc(100% + 30px); }
+    /* Dynamic Heights */
+    .round1 .round-matches .match:nth-of-type(2n-1) .match-line::before { height: calc(100% + 20px); }
+    .round2 .round-matches .match:nth-of-type(2n-1) .match-line::before { height: calc(100% + 108px); }
+    .round3 .round-matches .match:nth-of-type(2n-1) .match-line::before { height: calc(100% + 284px); }
+    .round4 .round-matches .match:nth-of-type(2n-1) .match-line::before { height: calc(100% + 636px); }
+    .round5 .round-matches .match:nth-of-type(2n-1) .match-line::before { height: calc(100% + 1340px); }
+    /* Hide for finals */
+    .finals-column .match-line::before, .finals-column .match-line::after,
+    .round6 .match-line::before, .round6 .match-line::after {
         display: none;
     }
 </style>
-
 
 </head>
 <body>
@@ -240,21 +242,21 @@
         { name: 'FINAL 4', matches: 2, class: 'round5' }, { name: 'CHAMPIONSHIP', matches: 1, class: 'round6' }
     ];
     let bracketData = {};
-    let baseZoom = 1.0;
-    let manualZoom = 1.0;
+    let baseScale = 1.0;
+    let manualScale = 1.0;
 
     function zoomIn() {
-        manualZoom = Math.min(manualZoom + 0.1, 2);
+        manualScale = Math.min(manualScale + 0.1, 2);
         updateZoom();
     }
     function zoomOut() {
-        manualZoom = Math.max(manualZoom - 0.1, 0.5);
+        manualScale = Math.max(manualScale - 0.1, 0.5);
         updateZoom();
     }
     function updateZoom() {
         const container = document.getElementById('bracketContainer');
-        container.style.zoom = baseZoom * manualZoom;
-        document.getElementById('zoomLevel').textContent = Math.round(manualZoom * 100) + '%';
+        container.style.transform = `scale(${baseScale * manualScale})`;
+        document.getElementById('zoomLevel').textContent = Math.round(manualScale * 100) + '%';
     }
     function initializeBracket() {
         bracketData = {};
@@ -351,19 +353,19 @@
             if (!scrollContainer || !bracketElement) return;
             const containerWidth = scrollContainer.clientWidth;
             const bracketWidth = bracketElement.scrollWidth;
-            const horizontalPadding = 40;
             if (bracketWidth > containerWidth) {
-                baseZoom = (containerWidth - horizontalPadding) / bracketWidth;
+                baseScale = containerWidth / bracketWidth;
             } else {
-                baseZoom = 1;
+                baseScale = 1;
             }
-            manualZoom = 1.0;
+            manualScale = 1.0;
             updateZoom();
         }, 150);
     }
     initializeBracket();
     autoZoomToFit();
 </script>
+
 
 
 </body>
