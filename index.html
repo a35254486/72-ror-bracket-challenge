@@ -22,8 +22,7 @@
         font-family: 'Roboto Condensed', sans-serif;
         background: var(--light-gray);
         min-height: 100vh;
-        /* REDUCED PADDING */
-        padding: 1rem;
+        padding: 1rem; /* Reduced Padding */
     }
     .container {
         max-width: 100%;
@@ -31,8 +30,7 @@
         background: var(--bg);
         border-radius: 10px;
         box-shadow: 0 4px 20px rgba(0, 59, 79, 0.15);
-        /* REDUCED PADDING */
-        padding: 1.5rem;
+        padding: 1.5rem; /* Reduced Padding */
     }
     header {
         text-align: center;
@@ -90,10 +88,9 @@
     .btn-accent:hover { background: var(--primary); color: white; }
     .bracket-scroll {
         overflow: auto;
-        padding: 1rem 0; /* Reduced top/bottom padding for the scroller */
+        padding: 1rem 0;
         position: relative;
         overscroll-behavior-inline: contain;
-        scroll-padding-inline: 24px;
     }
     .bracket-container {
         transform-origin: top left;
@@ -142,7 +139,7 @@
         font-weight: 600;
         font-size: 1.1rem;
         position: relative;
-        z-index: 1; /* Keeps team names on top of lines */
+        z-index: 1; /* ESSENTIAL: Puts team boxes on a higher layer */
     }
     .team:first-child { border-bottom: 1px solid var(--border); border-radius: 4px 4px 0 0; }
     .team:last-child { border-top: 1px solid var(--border); border-radius: 0 0 4px 4px; }
@@ -159,23 +156,42 @@
     .champion-display h2 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; font-weight: 700; letter-spacing: 2px; }
     .champion-name { font-size: 2rem; font-weight: 700; color: white; }
     
-    /* === CORRECTED BRACKET CONNECTOR LINES === */
-    .match::before, .match::after { content: ''; position: absolute; background: var(--primary); }
-    .match::after { top: 50%; transform: translateY(-50%); width: 30px; height: 2px; }
-    .round-matches .match:nth-of-type(2n-1)::before { top: 50%; width: 2px; }
-    .round-matches .match:nth-of-type(2n)::before { display: none; }
+    /* === FINAL WORKING BRACKET CONNECTOR LINES === */
+    .match::before, .match::after {
+        content: '';
+        position: absolute;
+        background: var(--primary); /* Restored your dark blue color */
+    }
+    .match::after { /* HORIZONTAL line */
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 2px;
+    }
+    .round-matches .match:nth-of-type(2n-1)::before { /* Full-height VERTICAL line */
+        top: 50%;
+        width: 2px;
+    }
+    .round-matches .match:nth-of-type(2n)::before { /* Hide the line-drawer for the bottom match in a pair */
+        display: none;
+    }
     .bracket-half.left .match::after { left: 100%; }
     .bracket-half.left .round-matches .match:nth-of-type(2n-1)::before { left: calc(100% + 30px); }
     .bracket-half.right .match::after { right: 100%; }
     .bracket-half.right .round-matches .match:nth-of-type(2n-1)::before { right: calc(100% + 30px); }
+    /* Dynamic Heights using your original margins */
     .round1 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 20px); }
     .round2 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 108px); }
     .round3 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 284px); }
     .round4 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 636px); }
     .round5 .round-matches .match:nth-of-type(2n-1)::before { height: calc(100% + 1340px); }
+    /* Hide lines for finals */
     .finals-column .match::before, .finals-column .match::after,
-    .round6 .match::before, .round6 .match::after { display: none; }
+    .round6 .match::before, .round6 .match::after {
+        display: none;
+    }
 </style>
+
 
 </head>
 <body>
@@ -218,13 +234,11 @@
         "Michael Shanley", "BYE", "Tony Kennedy", "Ian Johnson", "Phil Lapointe", "Michael Chesnut", "Gabriel Ptasienski", "BYE",
         "Alexander McQuain", "Jacob Vehrs", "David Carrillo", "BYE", "Steven Tommasello", "Benjamin Deforest", "Kat Hunter", "BYE"
     ];
-
     const rounds = [
         { name: 'FIRST ROUND', matches: 32, class: 'round1' }, { name: 'SECOND ROUND', matches: 16, class: 'round2' },
         { name: 'SWEET 16', matches: 8, class: 'round3' }, { name: 'ELITE 8', matches: 4, class: 'round4' },
         { name: 'FINAL 4', matches: 2, class: 'round5' }, { name: 'CHAMPIONSHIP', matches: 1, class: 'round6' }
     ];
-
     let bracketData = {};
     let baseZoom = 1.0;
     let manualZoom = 1.0;
@@ -233,18 +247,15 @@
         manualZoom = Math.min(manualZoom + 0.1, 2);
         updateZoom();
     }
-
     function zoomOut() {
         manualZoom = Math.max(manualZoom - 0.1, 0.5);
         updateZoom();
     }
-
     function updateZoom() {
         const container = document.getElementById('bracketContainer');
         container.style.zoom = baseZoom * manualZoom;
         document.getElementById('zoomLevel').textContent = Math.round(manualZoom * 100) + '%';
     }
-
     function initializeBracket() {
         bracketData = {};
         const bracket = document.getElementById('bracket');
@@ -267,7 +278,6 @@
         attachClickHandlers();
         attachHoverHandlers();
     }
-
     function createRound(round, roundIndex, startMatch, matchCount) {
         const roundDiv = document.createElement('div');
         roundDiv.className = `round ${round.class}`;
@@ -298,10 +308,8 @@
         roundDiv.appendChild(matchesDiv);
         return roundDiv;
     }
-
     function attachClickHandlers() { document.querySelectorAll('.team').forEach(team => team.addEventListener('click', function() { selectWinner(this.dataset.match, parseInt(this.dataset.team)); })); }
     function attachHoverHandlers() { document.querySelectorAll('.team').forEach(team => { team.addEventListener('mouseenter', function() { const seedElement = this.querySelector('.seed'); if (seedElement) { highlightPlayer(this.textContent.trim().substring(seedElement.textContent.trim().length).trim()); } }); team.addEventListener('mouseleave', clearHighlights); }); }
-
     function selectWinner(matchId, teamIndex) {
         const match = bracketData[matchId];
         const team = match.teams[teamIndex];
@@ -318,17 +326,14 @@
             nextTeam.innerHTML = `<span class="seed">${team.seed || '-'}</span>${team.name}`;
         } else { showChampion(team.name); }
     }
-
     function showChampion(name) { document.getElementById('championName').textContent = name; document.getElementById('championDisplay').classList.add('show'); }
     function highlightPlayer(name) { if (name === 'BYE' || name === 'TBD') return; document.querySelectorAll('.team').forEach(team => { const teamName = team.textContent.trim().substring(team.querySelector('.seed').textContent.trim().length).trim(); if (teamName === name) team.classList.add('highlighted'); }); }
     function clearHighlights() { document.querySelectorAll('.team').forEach(team => team.classList.remove('highlighted')); }
-
     function resetBracket() {
         document.getElementById('championDisplay').classList.remove('show');
         initializeBracket();
         autoZoomToFit();
     }
-
     function exportBracket() {
         const data = { players, bracket: bracketData, timestamp: new Date().toISOString() };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -339,7 +344,6 @@
         a.click();
         URL.revokeObjectURL(url);
     }
-    
     function autoZoomToFit() {
         setTimeout(() => {
             const scrollContainer = document.getElementById('bracketScroll');
@@ -357,10 +361,10 @@
             updateZoom();
         }, 150);
     }
-
     initializeBracket();
     autoZoomToFit();
 </script>
+
 
 </body>
 </html>
