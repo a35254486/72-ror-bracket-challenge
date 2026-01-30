@@ -486,6 +486,9 @@
 
         let bracketData = {};
         let zoomLevel = 1;
+        
+        /* NEW: base zoom that fits the bracket to the viewport on load */
+        let baseZoom = 1;
 
         function zoomIn() {
             zoomLevel = Math.min(zoomLevel + 0.1, 2);
@@ -502,7 +505,7 @@
             container.style.zoom = zoomLevel;;
             document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
         }
-
+            // Initialize
         function initializeBracket() {
             bracketData = {};
             const bracket = document.getElementById('bracket');
@@ -769,10 +772,20 @@ function fitBracketOnLoad() {
   // Respect your existing zoom bounds
   zoomLevel = Math.max(0.3, Math.min(fitZoom, 2));
 
-  // Apply zoom + update the label (your existing function)
-  updateZoom();
-}
+  // Start users at 100% relative to the base view
+  zoomLevel = 1;
 
+  // Apply zoom + update the label (your existing function)
+  updateZoom(); {
+  const container = document.getElementById('bracketContainer');
+
+  // Apply layout zoom: base fit × user multiplier
+  container.style.zoom = baseZoom * zoomLevel;
+
+  // Show user-relative zoom (100% at initial view)
+  document.getElementById('zoomLevel').textContent =
+    Math.round(zoomLevel * 100) + '%';
+}
     </script>
 </body>
 </html>
