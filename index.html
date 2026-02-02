@@ -20,7 +20,7 @@
 
     <style>
         :root {
-            --primary: #003B4F;
+            --NavyBlack: #08262C;
             --accent: #E8B00F;
             --bg: #FFFFFF;
             --light-gray: #F5F5F5;
@@ -60,7 +60,7 @@
         h1 {
             font-family: "Josefin Sans", sans-serif;
             font-size: 4.0rem;
-            color: var(--primary);
+            color: var(--NavyBlack);
             letter-spacing: 2px;
             text-transform: uppercase;
             /*font-variant: small-caps;*/
@@ -71,7 +71,8 @@
         .subtitle {
             font-family: "Josefin Sans", sans-serif;
             font-size: 2.5rem;
-            color: var(--primary);
+            color: var(--NavyBlack);
+            text-transform: uppercase;
             font-weight: 700;
         }
 
@@ -91,7 +92,7 @@
 
         .zoom-controls span {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--NavyBlack);
             min-width: 60px;
             text-align: center;
         }
@@ -109,19 +110,19 @@
             letter-spacing: 0.5px;
         }
 
-        .btn-primary {
-            background: var(--primary);
+        .btn-NavyBlack {
+            background: var(--NavyBlack);
             color: white;
         }
 
-        .btn-primary:hover {
+        .btn-NavyBlack:hover {
             background: #005266;
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: var(--accent);
-            color: var(--primary);
+            color: var(--NavyBlack);
         }
 
         .btn-secondary:hover {
@@ -131,12 +132,12 @@
 
         .btn-accent {
             background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--NavyBlack);
+            border: 2px solid var(--NavyBlack);
         }
 
         .btn-accent:hover {
-            background: var(--primary);
+            background: var(--NavyBlack);
             color: white;
         }
 
@@ -190,7 +191,7 @@
         .round-header {
             font-family: 'Oswald', sans-serif;
             font-size: 1.3rem;
-            color: var(--primary);
+            color: var(--NavyBlack);
             text-align: center;
             font-weight: 600;
             margin-bottom: 1.5rem;
@@ -242,9 +243,9 @@
         }
 
         .team.winner {
-            background: var(--primary);
+            background: var(--NavyBlack);
             color: white;
-            border-color: var(--primary);
+            border-color: var(--NavyBlack);
             font-weight: 700;
         }
 
@@ -256,7 +257,7 @@
 
         .team.highlighted {
             background: var(--accent);
-            color: var(--primary);
+            color: var(--NavyBlack);
             border-color: var(--accent);
             font-weight: 700;
         }
@@ -264,7 +265,7 @@
         .seed {
             display: inline-block;
             background: var(--accent);
-            color: var(--primary);
+            color: var(--NavyBlack);
             padding: 2px 6px;
             border-radius: 3px;
             font-size: 0.75rem;
@@ -276,7 +277,7 @@
 
         .winner .seed {
             background: var(--accent);
-            color: var(--primary);
+            color: var(--NavyBlack);
         }
 
         /* Connector lines - horizontal from match */
@@ -287,7 +288,7 @@
             top: 50%;
             width: 30px;
             height: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         /* Vertical lines connecting pairs */
@@ -297,7 +298,7 @@
             left: calc(100% + 30px);
             top: 50%;
             width: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         .match:nth-child(even)::before {
@@ -306,7 +307,7 @@
             left: calc(100% + 30px);
             bottom: 50%;
             width: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         /* Don't show connectors on the last round */
@@ -343,7 +344,7 @@
             text-align: center;
             margin-top: 3rem;
             padding: 2rem;
-            background: var(--primary);
+            background: var(--NavyBlack);
             border: 4px solid var(--accent);
             border-radius: 8px;
             display: none;
@@ -375,9 +376,9 @@
         }
     
 /* === Right-side connectors face inward; hover/header align inward === */
-.bracket-half.right .match::after { left: auto; right: 100%; width: 30px; height: 2px; background: var(--primary); }
+.bracket-half.right .match::after { left: auto; right: 100%; width: 30px; height: 2px; background: var(--NavyBlack); }
 .bracket-half.right .match:nth-child(odd)::before,
-.bracket-half.right .match:nth-child(even)::before { left: auto; right: calc(100% + 30px); width: 2px; background: var(--primary); }
+.bracket-half.right .match:nth-child(even)::before { left: auto; right: calc(100% + 30px); width: 2px; background: var(--NavyBlack); }
 .bracket-half.left .team:hover { transform: translateX(3px); }
 .bracket-half.right .team:hover { transform: translateX(-3px); }
 .bracket-half.left .round-header { text-align: right; }
@@ -398,7 +399,7 @@
         </header>
 
         <div class="controls">
-            <button class="btn-primary" onclick="resetBracket()">Reset Bracket</button>
+            <button class="btn-NavyBlack" onclick="resetBracket()">Reset Bracket</button>
             <!--HIDDEN EXPORT BUTTON-->
             <!--<button class="btn-accent" onclick="exportBracket()">Export Data</button>-->
             <div class="zoom-controls">
