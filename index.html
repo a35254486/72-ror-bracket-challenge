@@ -26,12 +26,9 @@
             --light-gray: #F5F5F5;
             --border: #bbbbbb;
         }
-@font-palette-values --my-custom-palette {
-  font-family: "Bungee Spice";
-  base-palette: 0;
-  override-colors:
-    0: #003B4F,  /* Replaced var(--primary) with the literal hex code */
-    1: #E8B00F;   /* Replaced var(--accent) with the literal hex code */
+@font-palette-values --NAVY {
+  font-family: Bungee Spice;
+  override-colors: 0 lch(88% 91 144), 1 lch(72% 49 241);
 }
 
         * {
@@ -62,7 +59,7 @@
         }
         h1 {
             font-family: 'Bungee Spice', sans-serif; /* Use the new font */
-            font-palette: --my-custom-palette;      /* Apply your custom color palette */
+            font-palette: --NAVY;      /* Apply your custom color palette */
             font-size: 4.5rem; /* Increased size slightly to suit the new font's style */
             color: var(--primary); /* Fallback color for older browsers */
             letter-spacing: 2px;
