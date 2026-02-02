@@ -28,10 +28,10 @@
         }
 @font-palette-values --my-custom-palette {
   font-family: "Bungee Spice";
-  base-palette: 0; /* Use the first (and only) palette in the font file */
+  base-palette: 0;
   override-colors:
-    0: var(--primary),  /* This overrides the font's first color (black) */
-    1: var(--accent);   /* This overrides the font's second color (orange) */
+    0: #003B4F,  /* Replaced var(--primary) with the literal hex code */
+    1: #E8B00F;   /* Replaced var(--accent) with the literal hex code */
 }
 
         * {
