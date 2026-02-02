@@ -20,16 +20,14 @@
 
     <style>
         :root {
-            --primary: #003B4F;
-            --accent: #E8B00F;
-            --bg: #FFFFFF;
-            --light-gray: #F5F5F5;
+            --NavyBlack: #08262C;
+            --TealBlue: #088199;
+            --Yellow: #E8B00F;
+            --White: #FFFFFF;
+            --Grey: #C6CCD0;
+            --light-grey: #F5F5F5;
             --border: #bbbbbb;
         }
-@font-palette-values --NAVY {
-  font-family: Bungee Spice;
-  override-colors: 0 lch(81.66% 3.16 240.39), 1 lch(13.21% 12.15 217.69);
-}
 
         * {
             margin: 0;
@@ -39,41 +37,45 @@
 
         body {
             font-family: 'Roboto Condensed', sans-serif;
-            background: var(--light-gray);
+            background: var(--light-grey);
             min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 0.5rem 1rem; /* Shorthand for: 0.5rem top/bottom, 1rem left/right */
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
-            background: var(--bg);
+            background: var(--White);
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 59, 79, 0.15);
-            padding: 1rem;
+            padding: .5rem;
         }
 
         header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            background-color: var(--NavyBlack); /* Adds the dark blue background */
+            border: 4px solid var(--Yellow);  /* Adds the yellow outline */
+            padding: 1rem;                    /* Adds spacing inside the box */
+            border-radius: 10px;              /* Rounds the corners to match the container */
         }
         h1 {
             font-family: "Josefin Sans", sans-serif;
-            font-size: 4.0rem;
-            color: var(--primary);
+            font-size: 5.25rem;
+            color: var(--White);
             letter-spacing: 2px;
             text-transform: uppercase;
             /*font-variant: small-caps;*/
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
         .subtitle {
             font-family: "Josefin Sans", sans-serif;
-            font-size: 2.5rem;
-            color: var(--primary);
+            font-size: 2.75rem;
+            color: var(--White);
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 600;
    		    font-style: italic;
         }
 
@@ -81,7 +83,7 @@
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.75rem;
             flex-wrap: wrap;
         }
 
@@ -93,7 +95,7 @@
 
         .zoom-controls span {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--NavyBlack);
             min-width: 60px;
             text-align: center;
         }
@@ -111,34 +113,34 @@
             letter-spacing: 0.5px;
         }
 
-        .btn-primary {
-            background: var(--primary);
+        .btn-NavyBlack {
+            background: var(--NavyBlack);
             color: white;
         }
 
-        .btn-primary:hover {
-            background: #005266;
+        .btn-NavyBlack:hover {
+            background: #TealBlue;
             transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background: var(--accent);
-            color: var(--primary);
+            background: var(--Yellow);
+            color: var(--NavyBlack);
         }
 
         .btn-secondary:hover {
-            background: #D4A20D;
+            background: #TealBlue;
             transform: translateY(-2px);
         }
 
-        .btn-accent {
+        .btn-Yellow {
             background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--NavyBlack);
+            border: 2px solid var(--NavyBlack);
         }
 
-        .btn-accent:hover {
-            background: var(--primary);
+        .btn-Yellow:hover {
+            background: var(--NavyBlack);
             color: white;
         }
 
@@ -158,7 +160,7 @@
         .bracket {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* instead of 'center' - This aligns all columns to the top */
             gap: 60px;
             min-width: max-content;
         }
@@ -179,8 +181,10 @@
         .finals-column {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* This aligns content to the top */
             align-items: center;
+            padding-top: 5rem; /* Adjust this value to push the content down from the top */
+
         }
 
         .round {
@@ -190,13 +194,15 @@
         }
 
         .round-header {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.3rem;
-            color: var(--primary);
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 1.4rem;
+            color: var(--NavyBlack);
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             letter-spacing: 1px;
+            font-style: italic;
+
         }
 
         .round-matches {
@@ -223,8 +229,8 @@
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.3rem;
         }
 
         .team:first-child {
@@ -238,35 +244,35 @@
         }
 
         .team:hover {
-            border-color: var(--accent);
+            border-color: var(--Yellow);
             background: #FFFEF5;
             transform: translateX(3px);
         }
 
         .team.winner {
-            background: var(--primary);
+            background: var(--NavyBlack);
             color: white;
-            border-color: var(--primary);
+            border-color: var(--NavyBlack);
             font-weight: 700;
         }
 
         .team.loser {
-            background: var(--light-gray);
+            background: var(--light-grey);
             color: #999;
             opacity: 0.6;
         }
 
         .team.highlighted {
-            background: var(--accent);
-            color: var(--primary);
-            border-color: var(--accent);
+            background: var(--Yellow);
+            color: var(--NavyBlack);
+            border-color: var(--Yellow);
             font-weight: 700;
         }
 
         .seed {
             display: inline-block;
-            background: var(--accent);
-            color: var(--primary);
+            background: var(--Yellow);
+            color: var(--NavyBlack);
             padding: 2px 6px;
             border-radius: 3px;
             font-size: 0.75rem;
@@ -277,8 +283,8 @@
         }
 
         .winner .seed {
-            background: var(--accent);
-            color: var(--primary);
+            background: var(--Yellow);
+            color: var(--NavyBlack);
         }
 
         /* Connector lines - horizontal from match */
@@ -289,7 +295,7 @@
             top: 50%;
             width: 30px;
             height: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         /* Vertical lines connecting pairs */
@@ -299,7 +305,7 @@
             left: calc(100% + 30px);
             top: 50%;
             width: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         .match:nth-child(even)::before {
@@ -308,7 +314,7 @@
             left: calc(100% + 30px);
             bottom: 50%;
             width: 2px;
-            background: var(--primary);
+            background: var(--NavyBlack);
         }
 
         /* Don't show connectors on the last round */
@@ -345,8 +351,8 @@
             text-align: center;
             margin-top: 3rem;
             padding: 2rem;
-            background: var(--primary);
-            border: 4px solid var(--accent);
+            background: var(--NavyBlack);
+            border: 4px solid var(--Yellow);
             border-radius: 8px;
             display: none;
         }
@@ -362,24 +368,24 @@
         }
 
         .champion-display h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
-            color: var(--accent);
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 4.5rem;
+            color: var(--Yellow);
             margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: 2px;
         }
 
         .champion-name {
-            font-size: 2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: white;
         }
     
 /* === Right-side connectors face inward; hover/header align inward === */
-.bracket-half.right .match::after { left: auto; right: 100%; width: 30px; height: 2px; background: var(--primary); }
+.bracket-half.right .match::after { left: auto; right: 100%; width: 30px; height: 2px; background: var(--NavyBlack); }
 .bracket-half.right .match:nth-child(odd)::before,
-.bracket-half.right .match:nth-child(even)::before { left: auto; right: calc(100% + 30px); width: 2px; background: var(--primary); }
+.bracket-half.right .match:nth-child(even)::before { left: auto; right: calc(100% + 30px); width: 2px; background: var(--NavyBlack); }
 .bracket-half.left .team:hover { transform: translateX(3px); }
 .bracket-half.right .team:hover { transform: translateX(-3px); }
 .bracket-half.left .round-header { text-align: right; }
@@ -390,6 +396,31 @@
         .team .seed {
             display: none;
         }
+/* --- STYLES FOR THE CENTER LOGO --- */
+.center-logo {
+    display: block;
+    max-width: 750px;
+    height: auto;
+    margin-bottom: 10rem;
+}
+
+/* --- Default style for Round 1 teams + White Separator Line --- */
+.round1 .team:not(.winner):not(.loser) {
+    background-color: var(--NavyBlack);
+    color: white;
+    border-color: var(--NavyBlack); /* Sets the outside border */
+}
+.round1 .team:first-child:not(.winner):not(.loser) {
+    border-bottom-color: white; /* Creates the white line on the top team */
+}
+
+/* --- Correct Hover style for Round 1 teams --- */
+.round1 .team:not(.winner):not(.loser):hover {
+    background-color: #FFFEF5;
+    border-color: var(--Yellow);
+    color: var(--NavyBlack); /* Makes text visible on hover */
+}
+        
 </style>
 </head>
 <body>
@@ -399,10 +430,10 @@
             <p class="subtitle">Who rules the Rules?</p>
         </header>
 
-        <div class="controls">
-            <button class="btn-primary" onclick="resetBracket()">Reset Bracket</button>
+    <div class="controls">
+            <button class="btn-NavyBlack" onclick="resetBracket()">Reset Bracket</button>
             <!--HIDDEN EXPORT BUTTON-->
-            <!--<button class="btn-accent" onclick="exportBracket()">Export Data</button>-->
+            <!--<button class="btn-Yellow" onclick="exportBracket()">Export Data</button>-->
             <div class="zoom-controls">
                 <button class="btn-secondary" onclick="zoomOut()">-</button>
                 <span id="zoomLevel">100%</span>
@@ -410,13 +441,13 @@
             </div>
         </div>
 
-        <div class="bracket-scroll" id="bracketScroll">
+    <div class="bracket-scroll" id="bracketScroll">
             <div class="bracket-container" id="bracketContainer">
                 <div class="bracket" id="bracket"></div>
             </div>
         </div>
 
-        <div class="champion-display" id="championDisplay">
+    <div class="champion-display" id="championDisplay">
             <h2>🏆 N72 RULES OF THE ROAD CHAMPION 🏆</h2>
             <div class="champion-name" id="championName"></div>
         </div>
@@ -431,7 +462,7 @@
             "Branden Ward",           // 9
             "Kevin Sweetman",         // 5
             "William Lyons",          // 12
-            "Geoffrey Welch",         // 4
+            "Geoff Welch",         // 4
             "BYE",                     // 13
             "David Harland",          // 6
             "Robert Beurket",         // 11
@@ -559,8 +590,17 @@
             const finalsDiv = document.createElement('div');
             finalsDiv.className = 'finals-column';
             const finalsRound = createRound(rounds[5], 5, 0, 1);
-            finalsDiv.appendChild(finalsRound);
 
+    // === THIS IS THE NEW BLOCK TO ADD YOUR IMAGE ===
+    // ===================================================
+            const logo = document.createElement('img');
+            logo.src = 'SWSC_logo.png'; // <-- IMPORTANT: REPLACE WITH YOUR FILENAME
+            logo.alt = 'Bracket Logo';
+            logo.className = 'center-logo';
+            finalsDiv.appendChild(logo); // Adds the image to the center column
+    // ===================================================
+            finalsDiv.appendChild(finalsRound);
+            
             bracket.appendChild(leftHalf);
             bracket.appendChild(finalsDiv);
             bracket.appendChild(rightHalf);
