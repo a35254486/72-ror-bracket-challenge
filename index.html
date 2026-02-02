@@ -14,6 +14,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+   <!--BUNGEE SPICE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #003B4F;
@@ -22,6 +26,13 @@
             --light-gray: #F5F5F5;
             --border: #bbbbbb;
         }
+@font-palette-values --my-custom-palette {
+  font-family: "Bungee Spice";
+  base-palette: 0; /* Use the first (and only) palette in the font file */
+  override-colors:
+    0: var(--primary),  /* This overrides the font's first color (black) */
+    1: var(--accent);   /* This overrides the font's second color (orange) */
+}
 
         * {
             margin: 0;
@@ -49,16 +60,15 @@
             text-align: center;
             margin-bottom: 1.5rem;
         }
-
         h1 {
-            font-family: "Josefin Sans", sans-serif;
-            font-size: 4.0rem;
-            color: var(--primary);
+            font-family: 'Bungee Spice', sans-serif; /* Use the new font */
+            font-palette: --my-custom-palette;      /* Apply your custom color palette */
+            font-size: 4.5rem; /* Increased size slightly to suit the new font's style */
+            color: var(--primary); /* Fallback color for older browsers */
             letter-spacing: 2px;
-            text-transform: uppercase;
-            /*font-variant: small-caps;*/
-            font-weight: 700;
+            font-weight: 400; /* This font doesn't use bold weights */
             margin-bottom: 0.5rem;
+            font-variant: normal; /* Small-caps does not work well with this font */
         }
 
         .subtitle {
