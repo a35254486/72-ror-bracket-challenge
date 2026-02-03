@@ -766,6 +766,7 @@
         }
 
         function highlightPlayer(name) {
+            if (name === 'TBD' || name === 'BYE') return; // <-- DON'T HOVER-HIGHLIGHT TBD OR BYES
             document.querySelectorAll('.team').forEach(team => {
                 const seedElement = team.querySelector('.seed');
                 if (seedElement) {
