@@ -621,6 +621,8 @@
                 zoomLevel = (viewW - 20) / contentW;
             }
             updateZoom();
+		    }, 250); // A 250ms delay is sufficient for most font rendering.
+
         });
 // --- Allows user to click overlay to close it ---
 document.getElementById('championOverlay').addEventListener('click', () => {
